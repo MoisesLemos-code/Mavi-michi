@@ -40,7 +40,7 @@
 
 <script>
     export default {
-        name: 'Etapa3',
+        name: 'EtapaTres',
         data() {
             return {}
         },

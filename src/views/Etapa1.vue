@@ -44,7 +44,7 @@
 
 <script>
     export default {
-        name: 'Etapa1',
+        name: 'EtapaUm',
         data() {
             return {}
         },

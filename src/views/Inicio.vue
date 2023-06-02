@@ -64,7 +64,7 @@
     import ConfettiGenerator from 'confetti-js'
 
     export default {
-        name: 'Inicio',
+        name: 'InicioContainer',
         components: {Etapa4, Etapa3, Etapa2, Etapa1},
         data() {
             return {

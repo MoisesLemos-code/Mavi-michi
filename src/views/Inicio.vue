@@ -16,7 +16,7 @@
       <h3 class="texto-titulo">Pour ma vie Michi</h3>
       <div class="container-btn-menu">
         <v-btn icon @click="ativarLeituraTextos" style="margin-right: 20px">
-          <v-icon color="primary" small>favorite</v-icon>
+          <v-icon :color="clickLeitura ? 'red' : 'primary'" small>favorite</v-icon>
         </v-btn>
         <audio-player :audio-array="arraryMusic" autoplay/>
       </div>
@@ -45,7 +45,7 @@
         Avançar >>
       </v-btn>
     </div>
-    <canvas id="my-canvas" class="confetes"/>
+    <canvas id="my-canvas" class="confetes" v-show="esconderBotoes"/>
     <div v-show="esconderBotoes" class="container-foto-final">
       <v-img
           :src="require('@/images/Moi-e-Emi.jpg')"
@@ -110,6 +110,7 @@
             return {
                 telaApresentacao: true,
                 exibirBotaoIniciar: false,
+                clickLeitura: false,
                 textoUmLido: false,
                 textoDoisLido: false,
                 textoTresLido: false,
@@ -145,6 +146,7 @@
                 this.textoQuatroLido = true
                 this.etapaMaxima = 5
                 this.ativarAvancar = true
+                this.clickLeitura = true
             },
             acaoConfirmar(){
                 var confettiElement = document.getElementById('my-canvas')

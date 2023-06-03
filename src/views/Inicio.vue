@@ -1,9 +1,20 @@
 <template>
   <div class="inicio-background">
-  <v-container class="inicio-container">
+    <div v-if="telaApresentacao" class="background-apresentacao-container">
+      <tela-apresentacao @iniciar="irParaInicio"/>
+      <v-btn
+             v-if="exibirBotaoIniciar"
+             id="botaoInicio"
+             text
+             class="botaoInicio"
+             @click="irParaInicio">
+        Iniciar
+      </v-btn>
+    </div>
+  <v-container class="inicio-container" v-if="!telaApresentacao">
     <div class="titulo-container fadeIn900">
       <h3 class="texto-titulo" @click="ativarLeituraTextos">Pour ma vie Michi</h3>
-      <audio-player :audio="audioMusic" />
+      <audio-player :audio-array="arraryMusic" autoplay/>
     </div>
     <div class="corpo-texto">
       <Etapa1 v-if="etapa == 1" :permanecer-texto="textoUmLido" @ativarAvancarEtapa="ativarOpcaoAvancar"/>
@@ -85,12 +96,15 @@
     import Etapa3 from '@/views/Etapa3.vue'
     import Etapa4 from '@/views/Etapa4.vue'
     import AudioPlayer from '@/components/AudioPlayer.vue'
+    import TelaApresentacao from '@/views/TelaApresentacao.vue'
 
     export default {
         name: 'InicioContainer',
-        components: {AudioPlayer, Etapa4, Etapa3, Etapa2, Etapa1},
+        components: {TelaApresentacao, AudioPlayer, Etapa4, Etapa3, Etapa2, Etapa1},
         data() {
             return {
+                telaApresentacao: true,
+                exibirBotaoIniciar: false,
                 textoUmLido: false,
                 textoDoisLido: false,
                 textoTresLido: false,
@@ -101,15 +115,24 @@
                 textoNegar: 'Não',
                 ativarAvancar: false,
                 etapaMaxima: 1,
-                audioMusic: 'music_0.mp3'
+                arraryMusic: [
+                    'music_0.mp3',
+                    'music_1.mp3',
+                    'music_2.mp3',
+                    'music_3.mp3',
+                    'music_4.mp3',
+                ]
             }
         },
         mounted() {
-            setTimeout(() => {
-                this.iniciarMusica()
-            }, 2000)
+            setTimeout( () =>{
+                this.exibirBotaoIniciar = true
+            }, 1500)
         },
         methods: {
+            irParaInicio(){
+                this.telaApresentacao = false
+            },
             ativarLeituraTextos(){
                 this.textoUmLido = true
                 this.textoDoisLido = true
@@ -179,11 +202,6 @@
                 } else if(numeroEtapa == 4){
                     this.textoQuatroLido = true
                 }
-            },
-            iniciarMusica(){
-                let number = Math.floor(Math.random() * 5)
-                this.audioMusic = 'music_' + number + '.mp3'
-                document.getElementById('btnAudioMusic').click()
             }
         }
     }
@@ -191,6 +209,19 @@
 
 <style scoped lang="stylus">
 
+    .background-apresentacao-container
+      display flex
+      flex-direction column
+      align-items center
+      min-height 100vh
+
+    .botaoInicio
+      margin-top 25px
+      width 100px !important
+      height 70px !important
+      color #bfffbc !important
+      font-size 24px
+      animation fadeIn 2000ms
 
     .texto-titulo:hover
       font-size 25px

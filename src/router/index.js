@@ -2,7 +2,6 @@ import Router from 'vue-router'
 import goTo from 'vuetify/es5/services/goto'
 import store from '@/core/store'
 
-import TelaApresentacao from '../views/TelaApresentacao'
 import Inicio from '../views/Inicio.vue'
 import ConteudoPrivado from '../components/ConteudoPrivado'
 
@@ -10,11 +9,6 @@ let router = new Router({
     routes: [
         {
             path: '/',
-            name: 'TelaApresentacao',
-            component: TelaApresentacao
-        },
-        {
-            path: '/inicio',
             name: 'Inicio',
             component: Inicio
         },

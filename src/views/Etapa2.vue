@@ -28,7 +28,7 @@
           <label class="texto texto-1">
             Em poucos dias eu conheci o seu sorriso, quando eu o vi eu pensei "me ferrei", moral
             da história: me apaixonei
-            mais ainda pela pessoa que você é.
+            mais ainda pela pessoa que voc&#234; é.
             Através do seu sorriso eu descobri mais um traço da sua personalidade, o seu
             maravilhoso jeito "moleca" de ser.
           </label>
@@ -78,6 +78,7 @@
             </v-img>
             </v-col>
           </v-row>
+          <v-btn id="btn-controle-avancar" v-show="false" @click="enviarEventoAtivarAvancar" :disabled="enviarEventoAvancar"/>
         </div>
       </v-col>
     </v-row>
@@ -88,35 +89,52 @@
 <script>
     export default {
         name: 'EtapaDois',
+        props:{
+            permanecerTexto:{
+                type: Boolean,
+                default: false
+            }
+        },
         data() {
-            return {}
+            return {
+                enviarEventoAvancar: false
+            }
         },
         mounted() {
             this.efeitoTextoDigitado( 1)
         },
         methods: {
             efeitoTextoDigitado(textoNumero){
-                const elemento = document.querySelector('.texto-' + textoNumero)
-                const textoArray = elemento.innerHTML.split('')
-                document.querySelector('.texto-' + textoNumero).innerHTML = ''
-                let quebraLinha = 0
-                textoArray.forEach((letra, i) => {
-                    setTimeout( function (){
-                        if(letra == '<'){
-                            quebraLinha = 1
-                            elemento.innerHTML += '<br>'
-                        }
-                        if(quebraLinha == 0) {
-                            elemento.innerHTML += letra
-                        }
-                        if(letra == '>'){
-                            quebraLinha = 0
-                        }
-                        if(elemento.innerText.includes('maravilhoso')){
-                            document.querySelector('.container-imagem').style.display = 'flex'
-                        }
-                    }, 75 * i)
-                } )
+                if(!this.permanecerTexto) {
+                    const elemento = document.querySelector('.texto-' + textoNumero)
+                    const textoArray = elemento.innerHTML.split('')
+                    document.querySelector('.texto-' + textoNumero).innerHTML = ''
+                    let quebraLinha = 0
+                    textoArray.forEach((letra, i) => {
+                        setTimeout(function () {
+                            if (letra == '<') {
+                                quebraLinha = 1
+                                elemento.innerHTML += '<br>'
+                            }
+                            if (quebraLinha == 0) {
+                                elemento.innerHTML += letra
+                            }
+                            if (letra == '>') {
+                                quebraLinha = 0
+                            }
+                            if (elemento.innerText.includes('maravilhoso')) {
+                                document.querySelector('.container-imagem').style.display = 'flex'
+                                document.getElementById('btn-controle-avancar').click()
+                                this.enviarEventoAvancar = true
+                            }
+                        }, 75 * i)
+                    })
+                } else {
+                    document.querySelector('.container-imagem').style.display = 'flex'
+                }
+            },
+            enviarEventoAtivarAvancar(){
+                this.$emit('ativarAvancarEtapa', 2)
             }
         }
     }
@@ -144,6 +162,7 @@
       height 350px
       width 350px
       margin-bottom 15px
+      border-radius 10%
 
     .container-imagem
       display none

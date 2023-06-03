@@ -27,11 +27,12 @@
         <div class="container-texto">
           <label class="texto texto-1">
             Nossa conexão foi aumentando dia após dia, logo percebi que eu iria viver muitos momentos
-            inesquecíveis com vocẽ. Não sei se acredito em destino, mas se ele existe, espero que você
-            seja a pessoa que ele guardou pra mim, por isso irei cuidar de você com muito
+            inesquecíveis com vocẽ. Não sei se acredito em destino, mas se ele existe, espero que voc&#234;
+            seja a pessoa que ele guardou pra mim, por isso irei cuidar de voc&#234; com muito
             carinho e te tratar como minha princesa.
           </label>
         </div>
+        <v-btn id="btn-controle-avancar" v-show="false" @click="enviarEventoAtivarAvancar" :disabled="enviarEventoAvancar"/>
       </v-col>
     </v-row>
 
@@ -41,32 +42,49 @@
 <script>
     export default {
         name: 'EtapaTres',
+        props:{
+            permanecerTexto:{
+                type: Boolean,
+                default: false
+            }
+        },
         data() {
-            return {}
+            return {
+                enviarEventoAvancar: false
+            }
         },
         mounted() {
             this.efeitoTextoDigitado( 1)
         },
         methods: {
             efeitoTextoDigitado(textoNumero){
-                const elemento = document.querySelector('.texto-' + textoNumero)
-                const textoArray = elemento.innerHTML.split('')
-                document.querySelector('.texto-' + textoNumero).innerHTML = ''
-                let quebraLinha = 0
-                textoArray.forEach((letra, i) => {
-                    setTimeout( function (){
-                        if(letra == '<'){
-                            quebraLinha = 1
-                            elemento.innerHTML += '<br>'
-                        }
-                        if(quebraLinha == 0) {
-                            elemento.innerHTML += letra
-                        }
-                        if(letra == '>'){
-                            quebraLinha = 0
-                        }
-                    }, 75 * i)
-                } )
+                if(!this.permanecerTexto) {
+                    const elemento = document.querySelector('.texto-' + textoNumero)
+                    const textoArray = elemento.innerHTML.split('')
+                    document.querySelector('.texto-' + textoNumero).innerHTML = ''
+                    let quebraLinha = 0
+                    textoArray.forEach((letra, i) => {
+                        setTimeout(function () {
+                            if (letra == '<') {
+                                quebraLinha = 1
+                                elemento.innerHTML += '<br>'
+                            }
+                            if (quebraLinha == 0) {
+                                elemento.innerHTML += letra
+                            }
+                            if (letra == '>') {
+                                quebraLinha = 0
+                            }
+                            if (elemento.innerText.includes('minha')) {
+                                document.getElementById('btn-controle-avancar').click()
+                                this.enviarEventoAvancar = true
+                            }
+                        }, 75 * i)
+                    })
+                }
+            },
+            enviarEventoAtivarAvancar(){
+                this.$emit('ativarAvancarEtapa', 3)
             }
         }
     }
@@ -94,6 +112,7 @@
   height 350px
   width 350px
   margin-bottom 15px
+  border-radius 10%
 
 .fadeIn980
   animation fadeIn 980ms

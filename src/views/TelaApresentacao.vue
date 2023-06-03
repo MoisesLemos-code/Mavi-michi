@@ -24,7 +24,7 @@
         },
         methods: {
             setarImagemEspera() {
-                let number = Math.floor(Math.random() * 4)
+                let number = Math.floor(Math.random() * 5)
                 this.imagemEspera = 'cat_' + number + '.gif'
             },
             irTelaInicial() {

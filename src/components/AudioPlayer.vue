@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-btn icon @click="controleAudio">
+        <v-btn icon @click="controleAudio" id="btnAudioMusic">
             <v-icon color="tertiary" small>{{ audioController ? 'mdi-pause': 'mdi-play'}}</v-icon>
         </v-btn>
     </div>
@@ -21,7 +21,7 @@
         },
         methods: {
             setarAudio() {
-                this.audioPlay = new Audio(require('../' + this.audio))
+                this.audioPlay = new Audio(require('@/images/music/' + this.audio))
             },
             controleAudio() {
                 this.audioController = !this.audioController

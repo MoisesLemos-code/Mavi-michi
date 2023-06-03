@@ -46,16 +46,17 @@
       <v-col xs="4" sm="5" md="9">
         <div class="container-texto">
           <label class="texto texto-1">
-            Não existe sequer um dia em que eu não exalte a sua beleza, não falo só de aparência, mas
+            Não existe sequer um dia em que eu não exalte a sua beleza, não falo só de apar&#234;ncia, mas
             também do seu jeito de se importar com os pequenos detalhes e de ser atenciosa, tenho certeza
-            que isso acontece porque você também pensa em mim todos os dias e eu acho isso maravilhoso.
+            que isso acontece porque voc&#234; também pensa em mim todos os dias e eu acho isso maravilhoso.
             <br>
-            Sou muito grato por ter o seu amor e por ter você ao meu lado, seu amor vale mais que mil
+            Sou muito grato por ter o seu amor e por ter voc&#234; ao meu lado, seu amor vale mais que mil
             Dodge Ram.
             <br>
             <br>
             Emilly, obrigado por ser essa pessoa incrível.
           </label>
+          <v-btn id="btn-controle-avancar" v-show="false" @click="enviarEventoAtivarAvancar" :disabled="enviarEventoAvancar"/>
         </div>
       </v-col>
     </v-row>
@@ -66,35 +67,54 @@
 <script>
     export default {
         name: 'EtapaQuatro',
+        props:{
+            permanecerTexto:{
+                type: Boolean,
+                default: false
+            }
+        },
         data() {
-            return {}
+            return {
+                enviarEventoAvancar: false
+            }
         },
         mounted() {
             this.efeitoTextoDigitado( 1)
         },
         methods: {
             efeitoTextoDigitado(textoNumero){
-                const elemento = document.querySelector('.texto-' + textoNumero)
-                const textoArray = elemento.innerHTML.split('')
-                document.querySelector('.texto-' + textoNumero).innerHTML = ''
-                let quebraLinha = 0
-                textoArray.forEach((letra, i) => {
-                    setTimeout( function (){
-                        if(letra == '<'){
-                            quebraLinha = 1
-                            elemento.innerHTML += '<br>'
-                        }
-                        if(quebraLinha == 0) {
-                            elemento.innerHTML += letra
-                        }
-                        if(letra == '>'){
-                            quebraLinha = 0
-                        }
-                        if(elemento.innerText.includes('Dodge R')){
-                            document.querySelector('.imagem-ram').style.display = 'block'
-                        }
-                    }, 75 * i)
-                } )
+                if(!this.permanecerTexto) {
+                    const elemento = document.querySelector('.texto-' + textoNumero)
+                    const textoArray = elemento.innerHTML.split('')
+                    document.querySelector('.texto-' + textoNumero).innerHTML = ''
+                    let quebraLinha = 0
+                    textoArray.forEach((letra, i) => {
+                        setTimeout(function () {
+                            if (letra == '<') {
+                                quebraLinha = 1
+                                elemento.innerHTML += '<br>'
+                            }
+                            if (quebraLinha == 0) {
+                                elemento.innerHTML += letra
+                            }
+                            if (letra == '>') {
+                                quebraLinha = 0
+                            }
+                            if (elemento.innerText.includes('Dodge R')) {
+                                document.querySelector('.imagem-ram').style.display = 'block'
+                            }
+                            if (elemento.innerText.includes('pessoa')) {
+                                document.getElementById('btn-controle-avancar').click()
+                                this.enviarEventoAvancar = true
+                            }
+                        }, 75 * i)
+                    })
+                } else {
+                    document.querySelector('.imagem-ram').style.display = 'block'
+                }
+            },
+            enviarEventoAtivarAvancar(){
+                this.$emit('ativarAvancarEtapa', 4)
             }
         }
     }
@@ -122,6 +142,7 @@
   height 350px
   width 350px
   margin-bottom 15px
+  border-radius 10%
 
 .fadeIn980
   animation fadeIn 980ms

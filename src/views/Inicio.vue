@@ -13,8 +13,13 @@
     </div>
   <v-container class="inicio-container" v-if="!telaApresentacao">
     <div class="titulo-container fadeIn900">
-      <h3 class="texto-titulo" @click="ativarLeituraTextos">Pour ma vie Michi</h3>
-      <audio-player :audio-array="arraryMusic" autoplay/>
+      <h3 class="texto-titulo">Pour ma vie Michi</h3>
+      <div class="container-btn-menu">
+        <v-btn icon @click="ativarLeituraTextos" style="margin-right: 20px">
+          <v-icon color="primary" small>favorite</v-icon>
+        </v-btn>
+        <audio-player :audio-array="arraryMusic" autoplay/>
+      </div>
     </div>
     <div class="corpo-texto">
       <Etapa1 v-if="etapa == 1" :permanecer-texto="textoUmLido" @ativarAvancarEtapa="ativarOpcaoAvancar"/>
@@ -236,6 +241,11 @@
       text-align center
       font-size 20px
       height 30px
+
+    .container-btn-menu
+      display flex
+      flex-direction row
+      justify-content center
 
     .corpo-texto
       margin-top 40px

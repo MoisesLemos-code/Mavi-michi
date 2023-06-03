@@ -27,7 +27,7 @@
         <div class="container-texto">
           <label class="texto texto-1">
             Nossa conexão foi aumentando dia após dia, logo percebi que eu iria viver muitos momentos
-            inesquecíveis com vocẽ. Não sei se acredito em destino, mas se ele existe, espero que voc&#234;
+            inesquecíveis com voc&#234;. Não sei se acredito em destino, mas se ele existe, espero que voc&#234;
             seja a pessoa que ele guardou pra mim, por isso irei cuidar de voc&#234; com muito
             carinho e te tratar como minha princesa.
           </label>

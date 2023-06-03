@@ -1,8 +1,11 @@
 <template>
-    <div>
+    <div class="container-audio">
         <v-btn icon @click="controleAudio" id="btnAudioMusic">
             <v-icon color="tertiary" small>{{ audioController ? 'mdi-pause': 'mdi-play'}}</v-icon>
         </v-btn>
+      <v-btn icon @click="pular" id="btnAudioMusicPular" v-if="pularMusica" style="margin-left: 10px">
+        <v-icon color="tertiary" small>mdi-skip-next</v-icon>
+      </v-btn>
     </div>
 </template>
 
@@ -15,12 +18,17 @@
                 type: Boolean,
                 default: false
             },
-            audioArray: Array
+            audioArray: Array,
+            pularMusica: {
+                type: Boolean,
+                default: false
+            },
         },
         data() {
             return {
                 audioController: false,
                 audioPlay: new Audio(),
+                numeroMusicaAtual: 0
             }
         },
         mounted() {
@@ -29,8 +37,8 @@
         methods: {
             setarAudio() {
                 if(this.audioArray.length > 0){
-                    let number = Math.floor(Math.random() * this.audioArray.length)
-                    this.audioPlay = new Audio(require('@/images/music/' + this.audioArray[number]))
+                    this.numeroMusicaAtual = Math.floor(Math.random() * this.audioArray.length)
+                    this.audioPlay = new Audio(require('@/images/music/' + this.audioArray[this.numeroMusicaAtual]))
                 } else{
                     this.audioPlay = new Audio(require('@/images/music/' + this.audio))
                 }
@@ -48,8 +56,21 @@
             },
             pausar() {
                 this.audioPlay.pause()
-                this.audioPlay.currentTime = 0
             },
+            pular(){
+                if(this.pularMusica){
+                    if(this.audioArray.length > 0){
+                        this.numeroMusicaAtual = this.numeroMusicaAtual + 1
+                        if(this.numeroMusicaAtual >= this.audioArray.length){
+                            this.numeroMusicaAtual = 0
+                        }
+                        this.audioPlay.pause()
+                        this.audioPlay.currentTime = 0
+                        this.audioPlay = new Audio(require('@/images/music/' + this.audioArray[this.numeroMusicaAtual]))
+                        this.audioPlay.play()
+                    }
+                }
+            }
         }
     }
 </script>

@@ -9,6 +9,7 @@
              class="botaoInicio"
              @click="irParaInicio">
         Iniciar
+        <v-icon color="#bfffbc" small>mdi-play</v-icon>
       </v-btn>
     </div>
   <v-container class="inicio-container" v-if="!telaApresentacao">
@@ -18,7 +19,7 @@
         <v-btn icon @click="ativarLeituraTextos" style="margin-right: 20px">
           <v-icon :color="clickLeitura ? 'red' : 'primary'" small>favorite</v-icon>
         </v-btn>
-        <audio-player :audio-array="arraryMusic" autoplay/>
+        <audio-player :audio-array="arraryMusic" autoplay pular-musica/>
       </div>
     </div>
     <div class="corpo-texto">

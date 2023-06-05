@@ -38,7 +38,7 @@
             setarAudio() {
                 if(this.audioArray.length > 0){
                     this.numeroMusicaAtual = Math.floor(Math.random() * this.audioArray.length)
-                    this.audioPlay = new Audio(require('@/images/music/' + this.audioArray[this.numeroMusicaAtual]))
+                    this.audioPlay = new Audio(require('@/images/music/' + this.audioArray[this.numeroMusicaAtual].caminho))
                 } else{
                     this.audioPlay = new Audio(require('@/images/music/' + this.audio))
                 }
@@ -66,7 +66,7 @@
                         }
                         this.audioPlay.pause()
                         this.audioPlay.currentTime = 0
-                        this.audioPlay = new Audio(require('@/images/music/' + this.audioArray[this.numeroMusicaAtual]))
+                        this.audioPlay = new Audio(require('@/images/music/' + this.audioArray[this.numeroMusicaAtual].caminho))
                         this.audioPlay.play()
                     }
                 }

@@ -123,11 +123,14 @@
                 ativarAvancar: false,
                 etapaMaxima: 1,
                 arraryMusic: [
-                    'music_0.mp3',
-                    'music_1.mp3',
-                    'music_2.mp3',
-                    'music_3.mp3',
-                    'music_4.mp3',
+                    {caminho: 'music_0.mp3', nome: 'The Neighbourhood - Daddy Issues'},
+                    {caminho: 'music_1.mp3', nome: 'The Neighbourhood - Reflections'},
+                    {caminho: 'music_2.mp3', nome: 'The Neighbourhood - Say my name (cover)'},
+                    {caminho: 'music_3.mp3', nome: 'The Neighbourhood - Sweater Weather'},
+                    {caminho: 'music_4.mp3', nome: 'The Neighbourhood - W.D.Y.W.F.M?'},
+                    {caminho: 'music_5.mp3', nome: 'The Neighbourhood - Flawless'},
+                    {caminho: 'music_6.mp3', nome: 'The Neighbourhood - Cry Baby'},
+                    {caminho: 'music_7.mp3', nome: 'The Neighbourhood - Single'},
                 ]
             }
         },
